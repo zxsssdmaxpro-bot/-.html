@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>منصة الرسوم التعليمية</title>
+<link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@400;500;700&display=swap" rel="stylesheet">
+<style>
+:root{--bg:#f6f7fb;--card:#fff;--tx:#1d2433;--mu:#5b6478;--pr:#2f5bea;--pr2:#e8eeff;--ok:#12805c;--okb:#e3f6ee;--no:#c0302f;--nob:#fde9e9;--bd:#e1e5ee;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}
+@media(prefers-color-scheme:dark){:root:not([data-theme="light"]){--bg:#10131a;--card:#181c26;--tx:#e8ebf3;--mu:#9aa3b8;--pr:#7d9bff;--pr2:#1f2740;--ok:#4cd3a0;--okb:#12302a;--no:#ff8a88;--nob:#3a1d1d;--bd:#2a3042;color-scheme:dark}}
+:root[data-theme="dark"]{--bg:#10131a;--card:#181c26;--tx:#e8ebf3;--mu:#9aa3b8;--pr:#7d9bff;--pr2:#1f2740;--ok:#4cd3a0;--okb:#12302a;--no:#ff8a88;--nob:#3a1d1d;--bd:#2a3042;color-scheme:dark}
+html{scroll-padding-top:env(safe-area-inset-top,0px)}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--tx);font-family:Tajawal,"Segoe UI",Tahoma,sans-serif;line-height:1.8}
+nav{position:sticky;top:env(safe-area-inset-top,0px);background:var(--card);border-bottom:1px solid var(--bd);display:flex;gap:4px;overflow-x:auto;padding:8px;z-index:5}
+nav a{flex:0 0 auto;padding:8px 14px;border-radius:20px;color:var(--mu);text-decoration:none;font-weight:500;white-space:nowrap}
+nav a.on{background:var(--pr);color:#fff}
+main{max-width:820px;margin:0 auto;padding:16px}
+.hero{background:linear-gradient(135deg,var(--pr),#7a4bd6);color:#fff;border-radius:18px;padding:26px 20px;margin-bottom:16px}
+.hero h1{margin:0 0 6px;font-size:1.6rem}.hero p{margin:0;opacity:.92}
+.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:10px}
+.card{background:var(--card);border:1px solid var(--bd);border-radius:14px;padding:14px;margin-bottom:10px}
+.tile{cursor:pointer;text-align:center;font-weight:700}
+.tile small{display:block;color:var(--mu);font-weight:400}
+details.card summary{cursor:pointer;font-weight:700;color:var(--pr)}
+details li,.card li{margin:4px 0}
+h2{font-size:1.25rem;margin:8px 0 12px}
+.chips{display:flex;gap:6px;flex-wrap:wrap;margin-bottom:12px}
+.chip{border:1px solid var(--bd);background:var(--card);color:var(--tx);padding:6px 12px;border-radius:16px;font:inherit;cursor:pointer}
+.chip.on{background:var(--pr);color:#fff;border-color:var(--pr)}
+.fc{min-height:110px;display:flex;align-items:center;justify-content:center;text-align:center;cursor:pointer;font-weight:500;user-select:none}
+.fc.back{background:var(--pr2);color:var(--pr)}
+.btn{background:var(--pr);color:#fff;border:0;border-radius:10px;padding:9px 16px;font:inherit;cursor:pointer}
+.btn.alt{background:var(--pr2);color:var(--pr)}
+.row{display:flex;gap:8px;justify-content:space-between;align-items:center;flex-wrap:wrap}
+.opt{display:block;width:100%;text-align:right;border:1px solid var(--bd);background:var(--card);color:var(--tx);border-radius:10px;padding:10px 12px;margin:6px 0;font:inherit;cursor:pointer}
+.opt.ok{background:var(--okb);border-color:var(--ok);color:var(--ok)}
+.opt.no{background:var(--nob);border-color:var(--no);color:var(--no)}
+.score{position:sticky;top:calc(env(safe-area-inset-top,0px) + 54px);background:var(--pr2);color:var(--pr);padding:8px 12px;border-radius:10px;margin-bottom:10px;font-weight:700;z-index:4}
+.team{display:flex;align-items:center;gap:12px}
+.av{width:48px;height:48px;border-radius:50%;background:var(--pr);color:#fff;display:flex;align-items:center;justify-content:center;font-weight:700;font-size:1.2rem;flex:none}
+.mu{color:var(--mu)}
+footer{text-align:center;color:var(--mu);padding:20px;font-size:.85rem}
+</style>
+</head>
+<body>
+<nav id="nav"></nav>
+<main id="app"></main>
+<footer>منصة تعليمية لمقرر «الرسوم التعليمية» – الفرقة الأولى – جامعة الأزهر</footer>
+<script>
+const CH=["مفهوم الرسوم التعليمية وأهميتها","أنواع الرسوم التعليمية","مبادئ تصميم الرسوم التعليمية","الإنفوجرافيك","الخرائط الذهنية وخرائط المفاهيم"];
+const LESSONS=[
+["الرسوم التعليمية تمثيل بالخطوط والأشكال لفكرة أو شيء، تركّز على الخطوط الأساسية دون التقيد بكل التفاصيل الواقعية.",
+"أهميتها: أسهل في الفهم والتذكر من اللفظ، تُظهر العلاقات، تسهّل تفسير البيانات، وتقلل اللفظية الزائدة وتراعي الفروق الفردية.",
+"معايير اختيارها: صادقة في تمثيل الواقع، مرتبطة بالمنهج، مناسبة لمستوى التلاميذ، بسيطة غير مزدحمة، وحدودها الأساسية بخط أغمق.",
+"الصورة تختلف عن الواقع في: المساحة، العرض الجزئي، التسطيح، الانعزال عن الحواس، والثبات.",
+"الصورة التعليمية هدفها التعلم (واضحة، عناصر قليلة، ألوان للتمييز)، بينما الصورة الفنية هدفها التعبير الذاتي للفنان.",
+"النصف الأيسر من الدماغ: اللغة والمنطق والرياضيات والتحليل. النصف الأيمن: الخيال والإبداع والفن والتصور الفراغي."],
+["أنواعها: الكاريكاتورية، التوضيحية، الخرائط، المصورات، المتسلسلة، البيانية.",
+"الكاريكاتور: مبالغة في الشكل بهدف التأثير الانفعالي. عيوبه: يعطي وجهة نظر واحدة وقد تقدم رموزه. على المعلم شرح رموزه.",
+"الرسم التوضيحي: خطوط وأشكال هندسية مبسطة تُظهر العناصر الأساسية وتُبنى أمام التلاميذ تدريجيًا.",
+"الخرائط: طبيعية (تضاريس)، سياسية، اقتصادية، مناخية، مواصلات، جيولوجية، تاريخية… وتعتمد على مفتاح الخريطة ومقياس الرسم.",
+"المصورات: الفروع (من العام للخاص)، الأصول (من الأجزاء للكل)، الزمنية، الانسيابية (سهم، شكل بيضاوي للبداية والنهاية، مستطيل للعملية، معين للقرار).",
+"الرسوم البيانية: بالخطوط (أدقها)، بالأعمدة (لا تزيد القيم عن 6–8)، الدائري (الجزء بالكل)، بالصور (الأكثر تشويقًا وبقاءً للأثر)."],
+["التصميم عملية ابتكارية تهدف لغرض محدد، وأركانه: الفكرة العامة، تحديد الخامات والأدوات، ثم التنفيذ.",
+"عناصر التصميم: النقطة، الخط، المساحة (الشكل)، الحجم، الملمس، الضوء والظل، الفراغ، اللون.",
+"الخط المستقيم يدل على الثبات، المنكسر على الإثارة وعدم الاستقرار، المنحني على الراحة والحركة والمرونة.",
+"أسس التصميم الجمالية: التناسب، التوازن، التوكيد والتباين، الوحدة والانسجام، الحركة.",
+"التوازن غير الشكلي (غير المتماثل) هو المفضل في الملصق لأنه يكسر الرتابة.",
+"الملصق يعتمد على: الأشكال المرسومة، الخطوط المكتوبة (عنوان كبير ورسالة قصيرة)، والألوان (الغامق في الأسفل والفاتح في الأعلى)."],
+["الإنفوجرافيك: تحويل المعلومات والبيانات المعقدة إلى رسوم مصورة يسهل فهمها دون قراءة كثير من النصوص.",
+"خصائصه: الترميز، الاتصال البصري، التشاركية، الإثرائية، التصميم الجذاب.",
+"أنواعه من حيث العرض: ثابت، متحرك، تفاعلي. ومن حيث الغرض: استقصائي، حواري، تفسيري.",
+"مراحل تصميمه: الدراسة والتحليل ← التصميم ← الإنتاج ← التقويم ← النشر والاستخدام.",
+"معايير الجودة: الإعداد المسبق، رسومات وألوان مناسبة، مراعاة خبرات المتعلم، صدق المعلومات، المراجعة اللغوية، مع غلبة الصور على النصوص.",
+"أدوات: Inkscape، Adobe Illustrator، Photoshop، Canva، Easelly، Venngage. تصاميمه: الدائرة، التحليل، الفقاعة، الشجرة، التدفق."],
+["خريطة المفاهيم: مخطط هرمي ثنائي البعد يبدأ بالمفاهيم العامة أعلى الخريطة، وتُربط بخطوط عليها كلمات ربط.",
+"أنواعها: هرمية ومجمعة (من حيث الشكل)، وخريطة للمفاهيم، وكلمات الربط، وافتراضية، ومفتوحة (من حيث التقديم).",
+"الخريطة الذهنية (Mind Map): فكرة رئيسية في المركز تتفرع منها الأفكار بشكل مشع، وتستخدم الألوان والصور والكلمات المفتاحية.",
+"الفرق: خرائط المفاهيم هرمية يبنيها المعلم وتُفهم من الجميع، والذهنية مشعة يبنيها الطالب وتخصه عادة.",
+"خطوات الذهنية: ابدأ من المركز، صورة مركزية، ثلاثة ألوان على الأقل، فروع متعرجة، كلمة مفتاحية على كل خط.",
+"الإلكترونية أسرع وأكثر مرونة وقابلة للمشاركة (FreeMind، MindManager، Mindomo…) مقابل اليدوية الأقل تكلفة."]];
+const FC=[[0,"ما الفرق بين الصورة التعليمية والفنية؟","التعليمية هدفها التعلم وتبسيط الشكل، والفنية تعبّر عن ذاتية الفنان."],
+[0,"اذكر وجوه اختلاف الصورة عن الواقع","المساحة، العرض الجزئي، التسطيح، الانعزال عن الحواس، الثبات."],
+[1,"متى يُستخدم الرسم البياني بالأعمدة؟","عند مقارنة قيم لا تزيد عن 6–8."],
+[1,"ما رمز المعين في المصور الانسيابي؟","نقطة اتخاذ قرار."],
+[1,"أي الرسوم البيانية أدق في إظهار الجزء بالكل؟","الرسم الدائري."],
+[1,"ما الفرق بين مصورات الفروع والأصول؟","الفروع من العام للخاص، والأصول من الأجزاء إلى الكل."],
+[2,"ما عناصر التصميم الجمالي؟","النقطة، الخط، المساحة، الحجم، الملمس، الضوء والظل، الفراغ، اللون."],
+[2,"ما أسس التصميم الجمالية؟","التناسب، التوازن، التوكيد والتباين، الوحدة، الحركة."],
+[3,"ما خصائص الإنفوجرافيك؟","الترميز، الاتصال البصري، التشاركية، الإثرائية، التصميم الجذاب."],
+[3,"اذكر مراحل تصميم الإنفوجرافيك","الدراسة والتحليل، التصميم، الإنتاج، التقويم، النشر والاستخدام."],
+[4,"ما أنواع خرائط المفاهيم حسب التقديم؟","خريطة للمفاهيم، لكلمات الربط، افتراضية، مفتوحة."],
+[4,"ما أول خطوة في رسم الخريطة الذهنية؟","البدء من المركز بصورة تعبّر عن الفكرة الرئيسية."]];
+const Q=[[0,"الرسوم التعليمية تُمثّل الفكرة عادةً بـ:",["الخطوط والأشكال","الصوت فقط","الأرقام فقط","النص المطوّل"],0],
+[0,"أي مما يلي ليس من أوجه اختلاف الصورة عن الواقع؟",["التسطيح","الثبات","الشمّ الكامل للأشياء","العرض الجزئي"],2],
+[0,"الصورة التعليمية تتميّز بأنها:",["تخضع لذاتية الفنان","واضحة وتركّز على أقل عدد من العناصر","كثيرة التفاصيل","لا ترتبط بالمنهج"],1],
+[0,"النصف الأيسر من الدماغ مسؤول عن:",["الخيال والفن","اللغة والمنطق والرياضيات","التعرف على الوجوه فقط","الحدس"],1],
+[1,"أكثر الرسوم البيانية دقةً في توضيح العلاقة بين مجموعتين من البيانات:",["الدائري","بالصور","بالخطوط","بالأعمدة"],2],
+[1,"الرسم الدائري يُستخدم لتوضيح:",["تطور ظاهرة عبر الزمن","علاقة الجزء بالكل","الاتجاهات الجغرافية","خطوات عملية"],1],
+[1,"في المصور الانسيابي يرمز المعيّن إلى:",["بداية العملية","نهايتها","نقطة اتخاذ قرار","عملية فرعية"],2],
+[1,"من عيوب الكاريكاتور في التعليم:",["أنه ممل","غالبًا يعطي وجهة نظر واحدة","لا يثير الانفعال","مرتفع التكلفة جدًا"],1],
+[1,"الخريطة التي توضح معالم السطح من سهول ومرتفعات هي:",["السياسية","الاقتصادية","الطبيعية (التضاريس)","المناخية"],2],
+[1,"الرسوم البيانية بالصور تتميّز بأنها:",["أدق من الخطوط","أكثر تشويقًا وبقاءً لأثر التعلم","لا تُستخدم في الصحف","تتطلب بيانات دقيقة جدًا"],1],
+[2,"الخط المنكسر يرتبط بـ:",["الثبات","الراحة","الإثارة وعدم الاستقرار","الفراغ"],2],
+[2,"أي مما يلي من أسس التصميم الجمالية؟",["النقطة","التوازن","الملمس","اللون"],1],
+[2,"التوازن المفضّل عند تصميم الملصق هو:",["المحوري المتماثل","غير الشكلي","لا توازن","الأفقي فقط"],1],
+[2,"عند تصميم الملصق يُفضّل وضع الألوان الغامقة:",["أعلى التصميم","في النصف الأسفل","في الإطار فقط","لا فرق"],1],
+[3,"أي مما يلي من خصائص الإنفوجرافيك؟",["الحفظ والتلقين","الترميز","الاعتماد على النص وحده","صعوبة النشر"],1],
+[3,"الإنفوجرافيك الذي يستخدم مؤثرات تفاعلية تُشرك المتعلم هو:",["الثابت","المتحرك","التفاعلي","الاستقصائي"],2],
+[3,"المرحلة التي تسبق الإنتاج في تصميم الإنفوجرافيك هي:",["النشر","التقويم","التصميم","المراجعة"],2],
+[3,"أي مما يلي برنامج لتصميم الإنفوجرافيك؟",["Canva","FreeMind","Excel فقط","Word فقط"],0],
+[4,"تبدأ خريطة المفاهيم بالمفاهيم:",["الأكثر تفصيلًا في الأعلى","الأكثر عمومية في الأعلى","الأمثلة في القمة","العشوائية"],1],
+[4,"الخريطة الذهنية تأخذ شكلًا:",["هرميًا من أعلى لأسفل","مشعًّا حول فكرة مركزية","جدوليًا","خطيًا فقط"],1],
+[4,"عند رسم الخريطة الذهنية يُنصح بـ:",["استخدام لون واحد","فروع مستقيمة فقط","ثلاثة ألوان على الأقل وكلمة مفتاحية","كتابة جمل طويلة"],2],
+[4,"الخريطة التي تُعطى للطالب بأسهم وكلمات ربط وأماكن فارغة للمفاهيم هي:",["خريطة للمفاهيم","خريطة لكلمات الربط","الخريطة المفتوحة","الخريطة المجمعة"],1]];
+const DEV=["أنس أحمد الدسوقي","أنس مدحت رمضان","محمد مختار أبوخطوة","إبراهيم حسن راضي","أحمد هيثم محمد"];
+const TABS={home:"الرئيسية",learn:"الشرح",review:"المراجعة",quiz:"بنك الأسئلة",team:"المطورون"};
+const $=s=>document.querySelector(s),app=$("#app");
+let ch=-1,fi=0,flip=false,ans={},qf=-1;
+const chips=(cur,fn)=>`<div class="chips">${["الكل",...CH.map((c,i)=>"الفصل "+(i+1))].map((c,i)=>`<button class="chip ${cur===i-1?"on":""}" onclick="${fn}(${i-1})">${c}</button>`).join("")}</div>`;
+function go(t){location.hash=t}
+const V={
+home(){return `<div class="hero"><h1>منصة الرسوم التعليمية</h1><p>شرح ومراجعة وبنك أسئلة لكتاب الرسوم التعليمية – الفرقة الأولى، كلية التربية، جامعة الأزهر.</p></div>
+<div class="grid">${[["learn","📖 الشرح","5 فصول مبسّطة"],["review","🃏 المراجعة","بطاقات للحفظ السريع"],["quiz","📝 بنك الأسئلة","اختبر نفسك فورًا"],["team","👥 المطورون","فريق العمل"]].map(x=>`<div class="card tile" onclick="go('${x[0]}')">${x[1]}<small>${x[2]}</small></div>`).join("")}</div>
+<div class="card"><b>فصول الكتاب</b><ol>${CH.map(c=>`<li>${c}</li>`).join("")}</ol></div>`},
+learn(){return `<h2>الشرح</h2>`+CH.map((c,i)=>`<details class="card" ${i===0?"open":""}><summary>الفصل ${i+1}: ${c}</summary><ul>${LESSONS[i].map(p=>`<li>${p}</li>`).join("")}</ul></details>`).join("")},
+review(){const L=FC.filter(f=>ch<0||f[0]===ch);if(fi>=L.length)fi=0;const f=L[fi];
+return `<h2>المراجعة</h2>${chips(ch,"setCh")}<div class="mu">بطاقة ${fi+1} من ${L.length} – اضغط على البطاقة لقلبها</div><div class="card fc ${flip?"back":""}" onclick="flip=!flip;render()">${flip?f[2]:f[1]}</div>
+<div class="row"><button class="btn alt" onclick="mv(-1)">السابق</button><button class="btn" onclick="mv(1)">التالي</button></div>`},
+quiz(){const L=Q.map((q,i)=>[q,i]).filter(x=>qf<0||x[0][0]===qf);const done=L.filter(x=>x[1] in ans).length,right=L.filter(x=>ans[x[1]]===x[0][3]).length;
+return `<h2>بنك الأسئلة</h2>${chips(qf,"setQf")}<div class="score">أجبت ${done} من ${L.length} – الصحيح: ${right}</div>`+L.map(([q,i],n)=>`<div class="card"><b>${n+1}. ${q[1]}</b><span class="mu"> (الفصل ${q[0]+1})</span>${q[2].map((o,k)=>{let c="";if(i in ans){if(k===q[3])c="ok";else if(k===ans[i])c="no"}return `<button class="opt ${c}" ${i in ans?"disabled":""} onclick="pick(${i},${k})">${o}</button>`}).join("")}</div>`).join("")+`<button class="btn alt" onclick="ans={};render()">إعادة الاختبار</button>`},
+team(){return `<h2>المطورون</h2><div class="card mu">تم تطوير هذه المنصة بواسطة:</div>`+DEV.map(d=>`<div class="card team"><div class="av">${d[0]}</div><b>${d}</b></div>`).join("")}};
+function setCh(i){ch=i;fi=0;flip=false;render()}
+function setQf(i){qf=i;render()}
+function mv(d){const n=FC.filter(f=>ch<0||f[0]===ch).length;fi=(fi+d+n)%n;flip=false;render()}
+function pick(i,k){ans[i]=k;render()}
+function render(){const t=V[location.hash.slice(1)]?location.hash.slice(1):"home";
+$("#nav").innerHTML=Object.entries(TABS).map(([k,v])=>`<a href="#${k}" class="${k===t?"on":""}">${v}</a>`).join("");
+const y=scrollY;app.innerHTML=V[t]();if(t==="home"||t==="learn"||t==="team")scrollTo(0,0);else scrollTo(0,y)}
+addEventListener("hashchange",()=>{scrollTo(0,0);render()});render();
+</script>
+</body>
+</html>
